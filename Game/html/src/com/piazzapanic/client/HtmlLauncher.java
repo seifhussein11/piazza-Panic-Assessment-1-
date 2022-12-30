@@ -3,7 +3,7 @@ package com.piazzapanic.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.piazzapanic.piazzaPanic;
+import com.piazzapanic.PiazzaPanic;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -17,6 +17,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new piazzaPanic();
+                return new PiazzaPanic();
         }
 }
