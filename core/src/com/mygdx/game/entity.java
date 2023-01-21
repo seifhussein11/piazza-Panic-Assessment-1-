@@ -16,17 +16,21 @@ public class entity {
     public boolean isIngredientStation = false;
 
     public String ingredient;
+
+    // Constructor for generic collidable objects
     entity(Texture image, Rectangle body){
         this.image = image;
         this.body = body;
     }
 
+    // Constructor for chefs
     entity(Texture image, Rectangle body, Stack<String> inventory){
         this.image = image;
         this.body = body;
         this.inventory = inventory;
     }
 
+    // Constructor for ingredient stations
     entity(Texture image, Rectangle body, boolean isIngredientStation, String ingredient){
         this.image = image;
         this.body = body;
