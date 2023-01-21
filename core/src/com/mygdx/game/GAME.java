@@ -22,41 +22,36 @@ public class GAME extends ApplicationAdapter {
     private SpriteBatch batch;
     private entity chef1, chef2, grill, cooking, serve, burgerStorage, lettuceStorage, trash1;
     private List<entity> entities;
-
-    private CharSequence chef1inv,chef2inv;
-
-    BitmapFont font;
-
     BitmapFont inventoryDisplay;
 
     @Override
     public void create() {
         // Instantiating entities
         chef1 = new entity(new Texture(Gdx.files.internal("chef1.png")),
-                new Rectangle(0, 0, 48, 48), new Stack<String>());
+                new Rectangle(0, 10, 48, 48), new Stack<String>());
 
         chef2 = new entity(new Texture(Gdx.files.internal("chef2.png")),
-                new Rectangle(200, 0, 48, 48), new Stack<String>());
+                new Rectangle(200, 10, 48, 48), new Stack<String>());
 
         grill = new entity(new Texture(Gdx.files.internal("grill.png")),
-                new Rectangle(520, 150, 90, 90));
+                new Rectangle(570, 300, 90, 90));
 
         cooking = new entity(new Texture(Gdx.files.internal("cooking.png")),
-                new Rectangle(100, 150, 90, 90));
+                new Rectangle(100, 300, 90, 90));
 
         serve = new entity(new Texture(Gdx.files.internal("Serve.png")),
-                new Rectangle(700, 150, 90, 90));
+                new Rectangle(1080, 300, 90, 90));
 
         burgerStorage = new entity(new Texture(Gdx.files.internal("burger.png")),
-                new Rectangle(300, 100, 10, 10),
+                new Rectangle(390, 100, 15, 20),
                 true, "burger");
 
         lettuceStorage = new entity(new Texture(Gdx.files.internal("lettuce.png")),
-                new Rectangle(380, 240, 20, 50),
+                new Rectangle(830, 100, 17, 30),
                 true, "lettuce");
 
         trash1 = new entity(new Texture(Gdx.files.internal("trash.png")),
-                new Rectangle(60, 300, 20, 60),
+                new Rectangle(600, 640, 35, 60),
                 true);
 
 
@@ -64,10 +59,11 @@ public class GAME extends ApplicationAdapter {
                 burgerStorage, lettuceStorage, trash1);
 
         inventoryDisplay = new BitmapFont();
-        inventoryDisplay.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        inventoryDisplay.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
+                Texture.TextureFilter.Linear);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1280, 720);
         batch = new SpriteBatch();
 
     }
@@ -87,12 +83,11 @@ public class GAME extends ApplicationAdapter {
         batch.draw(burgerStorage.image, burgerStorage.body.x, burgerStorage.body.y);
         batch.draw(lettuceStorage.image, lettuceStorage.body.x, lettuceStorage.body.y);
         batch.draw(trash1.image, trash1.body.x, trash1.body.y);
-        inventoryDisplay.setColor(1.0f,1.0f,1.0f,1.0f);
-        inventoryDisplay.draw(batch,("Chef 1: " + chef1.inventory.toString() + "\n\nChef 2: " + chef2.inventory.toString()),15,460);
+        inventoryDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        inventoryDisplay.draw(batch, ("Chef 1: " + chef1.inventory.toString()
+                + "\n\nChef 2: " + chef2.inventory.toString()), 15, 700);
 
         batch.end();
-
-
 
 
         // Collisions
@@ -101,15 +96,13 @@ public class GAME extends ApplicationAdapter {
                 chef1.body.x = chef1.prevx;
                 chef1.body.y = chef1.prevy;
             }
-            // Adds ingredient to inventory if the chef does
-            // not already have such ingredient (limit 1 at a time per chef)
+            // Adds ingredient to inventory
             if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isIngredientStation
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
                     && distance(e, chef1) < 100) {
 
                 chef1.inventory.push(e.ingredient);
                 System.out.println("Chef 1: " + chef1.inventory);
-                CharSequence chef1inv = chef1.inventory.toString();
 
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isTrashCan
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
@@ -117,7 +110,6 @@ public class GAME extends ApplicationAdapter {
 
                 chef1.inventory.pop();
                 System.out.println("Chef 1: " + chef1.inventory);
-                CharSequence chef1inv = chef1.inventory.toString();
             }
         }
 
@@ -133,7 +125,6 @@ public class GAME extends ApplicationAdapter {
 
                 chef2.inventory.push(e.ingredient);
                 System.out.println("Chef 2: " + chef2.inventory);
-                CharSequence chef2inv = chef2.inventory.toString();
 
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isTrashCan
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_2)
@@ -141,7 +132,6 @@ public class GAME extends ApplicationAdapter {
 
                 chef2.inventory.pop();
                 System.out.println("Chef 2: " + chef2.inventory);
-                CharSequence chef2inv = chef2.inventory.toString();
             }
 
         }
@@ -150,46 +140,46 @@ public class GAME extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 chef1.prevx = chef1.body.x;
-                chef1.body.x -= 200 * Gdx.graphics.getDeltaTime();
+                chef1.body.x -= 300 * Gdx.graphics.getDeltaTime();
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 chef1.prevx = chef1.body.x;
-                chef1.body.x += 200 * Gdx.graphics.getDeltaTime();
+                chef1.body.x += 300 * Gdx.graphics.getDeltaTime();
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 chef1.prevy = chef1.body.y;
-                chef1.body.y += 200 * Gdx.graphics.getDeltaTime();
+                chef1.body.y += 300 * Gdx.graphics.getDeltaTime();
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 chef1.prevy = chef1.body.y;
-                chef1.body.y -= 200 * Gdx.graphics.getDeltaTime();
+                chef1.body.y -= 300 * Gdx.graphics.getDeltaTime();
             }
             if (chef1.body.x < 0) chef1.body.x = 0;
-            if (chef1.body.x > 800 - 64) chef1.body.x = 800 - 64;
+            if (chef1.body.x > 1280 - 48) chef1.body.x = 1280 - 48;
             if (chef1.body.y < 0) chef1.body.y = 0;
-            if (chef1.body.y > 480 - 64) chef1.body.y = 480 - 64;
+            if (chef1.body.y > 720 - 48) chef1.body.y = 720 - 48;
 
         } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 chef2.prevx = chef2.body.x;
-                chef2.body.x -= 200 * Gdx.graphics.getDeltaTime();
+                chef2.body.x -= 300 * Gdx.graphics.getDeltaTime();
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 chef2.prevx = chef2.body.x;
-                chef2.body.x += 200 * Gdx.graphics.getDeltaTime();
+                chef2.body.x += 300 * Gdx.graphics.getDeltaTime();
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 chef2.prevy = chef2.body.y;
-                chef2.body.y += 200 * Gdx.graphics.getDeltaTime();
+                chef2.body.y += 300 * Gdx.graphics.getDeltaTime();
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 chef2.prevy = chef2.body.y;
-                chef2.body.y -= 200 * Gdx.graphics.getDeltaTime();
+                chef2.body.y -= 300 * Gdx.graphics.getDeltaTime();
             }
             if (chef2.body.x < 0) chef2.body.x = 0;
-            if (chef2.body.x > 800 - 64) chef2.body.x = 800 - 64;
+            if (chef2.body.x > 1280 - 48) chef2.body.x = 1280 - 48;
             if (chef2.body.y < 0) chef2.body.y = 0;
-            if (chef2.body.y > 480 - 64) chef2.body.y = 480 - 64;
+            if (chef2.body.y > 720 - 48) chef2.body.y = 720 - 48;
         }
 
     }
