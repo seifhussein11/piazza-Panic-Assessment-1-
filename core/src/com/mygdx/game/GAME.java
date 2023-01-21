@@ -96,7 +96,7 @@ public class GAME extends ApplicationAdapter {
 
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isTrashCan
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
-                    && distance(e, chef1) < 100) {
+                    && distance(e, chef1) < 100 && !(chef1.inventory.isEmpty())) {
 
                 chef1.inventory.pop();
                 System.out.println("Chef 1: " + chef1.inventory);
