@@ -25,6 +25,8 @@ public class GAME extends ApplicationAdapter {
 
     private CharSequence chef1inv,chef2inv;
 
+    BitmapFont font;
+
     BitmapFont inventoryDisplay;
 
     @Override
@@ -62,6 +64,7 @@ public class GAME extends ApplicationAdapter {
                 burgerStorage, lettuceStorage, trash1);
 
         inventoryDisplay = new BitmapFont();
+        inventoryDisplay.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
