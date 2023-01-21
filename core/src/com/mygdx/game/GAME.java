@@ -85,7 +85,9 @@ public class GAME extends ApplicationAdapter {
         batch.draw(trash1.image, trash1.body.x, trash1.body.y);
         inventoryDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         inventoryDisplay.draw(batch, ("Chef 1: " + chef1.inventory.toString()
-                + "\n\nChef 2: " + chef2.inventory.toString()), 15, 700);
+                + " " + (4 - chef1.inventory.size()) + "/4"
+                + "\n\nChef 2: " + chef2.inventory.toString() +
+                " " + (4 - chef2.inventory.size()) + "/4"), 15, 700);
 
         batch.end();
 
@@ -99,7 +101,7 @@ public class GAME extends ApplicationAdapter {
             // Adds ingredient to inventory
             if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isIngredientStation
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
-                    && distance(e, chef1) < 100) {
+                    && distance(e, chef1) < 100 && chef1.inventory.size() < 4) {
 
                 chef1.inventory.push(e.ingredient);
                 System.out.println("Chef 1: " + chef1.inventory);
@@ -121,7 +123,7 @@ public class GAME extends ApplicationAdapter {
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isIngredientStation
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_2)
-                    && distance(e, chef2) < 100) {
+                    && distance(e, chef2) < 100 && chef2.inventory.size() < 4) {
 
                 chef2.inventory.push(e.ingredient);
                 System.out.println("Chef 2: " + chef2.inventory);
