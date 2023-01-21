@@ -19,10 +19,8 @@ import java.util.Stack;
 public class GAME extends ApplicationAdapter {
     private OrthographicCamera camera;
     private SpriteBatch batch;
-    private entity chef1, chef2, grill, cooking, serve, burgerStorage, lettuceStorage;
+    private entity chef1, chef2, grill, cooking, serve, burgerStorage, lettuceStorage, trash1;
     private List<entity> entities;
-
-    long whenKeyPressed;
 
     @Override
     public void create() {
@@ -47,12 +45,16 @@ public class GAME extends ApplicationAdapter {
                 true, "burger");
 
         lettuceStorage = new entity(new Texture(Gdx.files.internal("lettuce.png")),
-                new Rectangle(350,200, 30,30),
+                new Rectangle(350, 200, 30, 30),
                 true, "lettuce");
+
+        trash1 = new entity(new Texture(Gdx.files.internal("trash.png")),
+                new Rectangle(60, 300, 40, 40),
+                true);
 
 
         entities = Arrays.asList(chef1, chef2, grill, cooking, serve,
-                burgerStorage, lettuceStorage);
+                burgerStorage, lettuceStorage, trash1);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -73,6 +75,7 @@ public class GAME extends ApplicationAdapter {
         batch.draw(serve.image, serve.body.x, serve.body.y);
         batch.draw(burgerStorage.image, burgerStorage.body.x, burgerStorage.body.y);
         batch.draw(lettuceStorage.image, lettuceStorage.body.x, lettuceStorage.body.y);
+        batch.draw(trash1.image, trash1.body.x, trash1.body.y);
         batch.end();
 
 
@@ -84,12 +87,18 @@ public class GAME extends ApplicationAdapter {
             }
             // Adds ingredient to inventory if the chef does
             // not already have such ingredient (limit 1 at a time per chef)
-            if (Gdx.input.isKeyPressed(Input.Keys.E) && e.isIngredientStation
+            if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isIngredientStation
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
-                    && distance(e,chef1) < 100
-                    && !(chef1.inventory.contains(e.ingredient))) {
+                    && distance(e, chef1) < 100) {
 
                 chef1.inventory.push(e.ingredient);
+                System.out.println("Chef 1: " + chef1.inventory);
+
+            } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isTrashCan
+                    && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
+                    && distance(e, chef1) < 100) {
+
+                chef1.inventory.pop();
                 System.out.println("Chef 1: " + chef1.inventory);
             }
         }
@@ -100,12 +109,18 @@ public class GAME extends ApplicationAdapter {
                 chef2.body.y = chef2.prevy;
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.E) && e.isIngredientStation
+            if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isIngredientStation
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_2)
-                    && distance(e,chef2) < 100
-                    && !(chef2.inventory.contains(e.ingredient))) {
+                    && distance(e, chef2) < 100) {
 
                 chef2.inventory.push(e.ingredient);
+                System.out.println("Chef 2: " + chef2.inventory);
+
+            } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isTrashCan
+                    && Gdx.input.isKeyPressed(Input.Keys.NUM_2)
+                    && distance(e, chef2) < 100 && !(chef2.inventory.isEmpty())) {
+
+                chef2.inventory.pop();
                 System.out.println("Chef 2: " + chef2.inventory);
             }
 

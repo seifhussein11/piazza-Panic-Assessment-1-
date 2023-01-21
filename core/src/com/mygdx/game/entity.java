@@ -15,6 +15,8 @@ public class entity {
 
     public boolean isIngredientStation = false;
 
+    public boolean isTrashCan = false;
+
     public String ingredient;
 
     // Constructor for generic collidable objects
@@ -36,6 +38,13 @@ public class entity {
         this.body = body;
         this.isIngredientStation = isIngredientStation;
         this.ingredient = ingredient;
+    }
+
+    // Constructor for trash can
+    entity(Texture image, Rectangle body, boolean isTrashCan){
+        this.image = image;
+        this.body = body;
+        this.isTrashCan = isTrashCan;
     }
 
 
