@@ -12,11 +12,8 @@ public class entity {
     public float prevx = 0;
     public float prevy = 0;
     public boolean collide = false;
-
     public boolean isIngredientStation = false;
-
     public boolean isTrashCan = false;
-
     public String ingredient;
 
     // Constructor for generic collidable objects
