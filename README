@@ -1,7 +1,7 @@
 #CONTROLS
 
-Hold 1 to enable arrow key control for chef 1
-Hold 2 to enable arrow key control for chef 2
+Hold 1 to enable controls for chef 1
+Hold 2 to enable controls for chef 2
 
-Press E alongside the number of the desired chef in order to
-interact with objects when a chef is close enough
+Press E while holding the number of the desired chef in
+order to interact with objects when a chef is close enough
