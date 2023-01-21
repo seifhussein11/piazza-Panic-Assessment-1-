@@ -88,7 +88,6 @@ public class GAME extends ApplicationAdapter {
                 + " " + (4 - chef1.inventory.size()) + "/4"
                 + "\n\nChef 2: " + chef2.inventory.toString() +
                 " " + (4 - chef2.inventory.size()) + "/4"), 15, 700);
-
         batch.end();
 
 
