@@ -5,13 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -22,14 +23,18 @@ public class GAME extends ApplicationAdapter {
     private entity chef1, chef2, grill, cooking, serve, burgerStorage, lettuceStorage, trash1;
     private List<entity> entities;
 
+    private CharSequence chef1inv,chef2inv;
+
+    BitmapFont inventoryDisplay;
+
     @Override
     public void create() {
         // Instantiating entities
         chef1 = new entity(new Texture(Gdx.files.internal("chef1.png")),
-                new Rectangle(0, 0, 64, 64), new Stack<String>());
+                new Rectangle(0, 0, 48, 48), new Stack<String>());
 
         chef2 = new entity(new Texture(Gdx.files.internal("chef2.png")),
-                new Rectangle(200, 0, 64, 64), new Stack<String>());
+                new Rectangle(200, 0, 48, 48), new Stack<String>());
 
         grill = new entity(new Texture(Gdx.files.internal("grill.png")),
                 new Rectangle(520, 150, 90, 90));
@@ -41,24 +46,27 @@ public class GAME extends ApplicationAdapter {
                 new Rectangle(700, 150, 90, 90));
 
         burgerStorage = new entity(new Texture(Gdx.files.internal("burger.png")),
-                new Rectangle(300, 100, 20, 20),
+                new Rectangle(300, 100, 10, 10),
                 true, "burger");
 
         lettuceStorage = new entity(new Texture(Gdx.files.internal("lettuce.png")),
-                new Rectangle(350, 200, 30, 30),
+                new Rectangle(380, 240, 20, 50),
                 true, "lettuce");
 
         trash1 = new entity(new Texture(Gdx.files.internal("trash.png")),
-                new Rectangle(60, 300, 40, 40),
+                new Rectangle(60, 300, 20, 60),
                 true);
 
 
         entities = Arrays.asList(chef1, chef2, grill, cooking, serve,
                 burgerStorage, lettuceStorage, trash1);
 
+        inventoryDisplay = new BitmapFont();
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
+
     }
 
     @Override
@@ -76,7 +84,12 @@ public class GAME extends ApplicationAdapter {
         batch.draw(burgerStorage.image, burgerStorage.body.x, burgerStorage.body.y);
         batch.draw(lettuceStorage.image, lettuceStorage.body.x, lettuceStorage.body.y);
         batch.draw(trash1.image, trash1.body.x, trash1.body.y);
+        inventoryDisplay.setColor(1.0f,1.0f,1.0f,1.0f);
+        inventoryDisplay.draw(batch,("Chef 1: " + chef1.inventory.toString() + "\n\nChef 2: " + chef2.inventory.toString()),15,460);
+
         batch.end();
+
+
 
 
         // Collisions
@@ -93,6 +106,7 @@ public class GAME extends ApplicationAdapter {
 
                 chef1.inventory.push(e.ingredient);
                 System.out.println("Chef 1: " + chef1.inventory);
+                CharSequence chef1inv = chef1.inventory.toString();
 
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isTrashCan
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
@@ -100,6 +114,7 @@ public class GAME extends ApplicationAdapter {
 
                 chef1.inventory.pop();
                 System.out.println("Chef 1: " + chef1.inventory);
+                CharSequence chef1inv = chef1.inventory.toString();
             }
         }
 
@@ -115,6 +130,7 @@ public class GAME extends ApplicationAdapter {
 
                 chef2.inventory.push(e.ingredient);
                 System.out.println("Chef 2: " + chef2.inventory);
+                CharSequence chef2inv = chef2.inventory.toString();
 
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.isTrashCan
                     && Gdx.input.isKeyPressed(Input.Keys.NUM_2)
@@ -122,6 +138,7 @@ public class GAME extends ApplicationAdapter {
 
                 chef2.inventory.pop();
                 System.out.println("Chef 2: " + chef2.inventory);
+                CharSequence chef2inv = chef2.inventory.toString();
             }
 
         }
