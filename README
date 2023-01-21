@@ -1,8 +1,7 @@
 #CONTROLS
 
-Hold 1,2 or 3 to control chef1, chef2, chef3 (Literally the very 
-first stock image I found was heart)
+Hold 1 to enable controls for chef 1
+Hold 2 to enable controls for chef 2
 
-While holding use arrows to move
-
-
+Press E while holding the number of the desired chef in
+order to interact with objects when a chef is close enough
