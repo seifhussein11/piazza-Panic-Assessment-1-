@@ -15,6 +15,7 @@ public class Chef extends Entity {
         this.prevy = body.y;
     }
 
+    // integer multiplier (300) is the chef's walk speed
     public void movement() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.prevx = this.body.x;
