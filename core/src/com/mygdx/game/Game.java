@@ -109,24 +109,14 @@ public class Game extends ApplicationAdapter {
             chef1.movement();
 
             for (Entity e : entities) {
-                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-                    chef1.interact(e, e.stationType, e.ingredient);
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-                    chef2.interact(e, e.stationType, e.ingredient);
-                }
+                chef1.interact(e, e.stationType, e.ingredient);
             }
 
         } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
             chef2.movement();
 
             for (Entity e : entities) {
-                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-                    chef1.interact(e, e.stationType, e.ingredient);
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-                    chef2.interact(e, e.stationType, e.ingredient);
-                }
+                chef2.interact(e, e.stationType, e.ingredient);
             }
         }
     }

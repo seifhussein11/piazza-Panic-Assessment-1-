@@ -13,5 +13,3 @@ public class DesktopLauncher {
 		new Lwjgl3Application(new Game(), config);
 	}
 }
-
-
