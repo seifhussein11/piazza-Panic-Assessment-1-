@@ -18,19 +18,19 @@ public class Chef extends Entity {
     public void movement() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.prevx = this.body.x;
-            this.body.x -= 200 * Gdx.graphics.getDeltaTime();
+            this.body.x -= 300 * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.prevx = this.body.x;
-            this.body.x += 200 * Gdx.graphics.getDeltaTime();
+            this.body.x += 300 * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.prevy = this.body.y;
-            this.body.y += 200 * Gdx.graphics.getDeltaTime();
+            this.body.y += 300 * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             this.prevy = this.body.y;
-            this.body.y -= 200 * Gdx.graphics.getDeltaTime();
+            this.body.y -= 300 * Gdx.graphics.getDeltaTime();
         }
         if (this.body.x < 0) this.body.x = 0;
         if (this.body.x > 1280 - 48) this.body.x = 1280 - 48;
