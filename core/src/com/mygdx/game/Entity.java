@@ -14,11 +14,6 @@ public class Entity {
     public int stationType = 0;
     public String ingredient;
 
-    Entity() {
-        this.image = null;
-        this.body = null;
-    }
-
     // Constructor for generic collidable objects
     Entity(Texture image, Rectangle body) {
         this.image = image;
