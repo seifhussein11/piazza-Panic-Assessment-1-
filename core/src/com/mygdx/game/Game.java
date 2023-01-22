@@ -24,11 +24,12 @@ public class Game extends ApplicationAdapter {
     private Station burgerStorage, lettuceStorage, bunStorage,
             trash1, grill, chopping, serve, prep;
     private List<Entity> entities;
-    BitmapFont inventoryDisplay;
+    BitmapFont inventoryDisplay, timer;
+    long startTime;
 
     @Override
     public void create() {
-
+        startTime = System.currentTimeMillis();
         // Instantiating entities
         chef1 = new Chef(new Texture(Gdx.files.internal("chef1.png")),
                 new Rectangle(0, 10, 48, 48), new Stack<String>(),
@@ -77,6 +78,8 @@ public class Game extends ApplicationAdapter {
         inventoryDisplay.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                 Texture.TextureFilter.Linear);
 
+        timer = new BitmapFont();
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
         batch = new SpriteBatch();
@@ -111,7 +114,7 @@ public class Game extends ApplicationAdapter {
                 + "\n\nChef 2: " + chef2.inventory.toString() +
                 " " + (4 - chef2.inventory.size()) + "/4" +
                 "\n\nItems trashed: " + trash1.trashScore), 15, 700);
-
+        timer.draw(batch,("Time: "+(System.currentTimeMillis()-startTime)/1000),1200,700);
         batch.end();
 
         // Collision
