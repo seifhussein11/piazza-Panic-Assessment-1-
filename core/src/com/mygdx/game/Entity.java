@@ -5,43 +5,46 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Stack;
 
-public class entity {
+public class Entity {
     public Texture image;
     public Rectangle body;
     public Stack<String> inventory;
     public float prevx = 0;
     public float prevy = 0;
     public boolean collide = false;
-    public boolean isIngredientStation = false;
-    public boolean isTrashCan = false;
+    public int stationType = 0;
     public String ingredient;
 
+    Entity(){
+        this.image = null;
+        this.body = null;
+    }
     // Constructor for generic collidable objects
-    entity(Texture image, Rectangle body){
+    Entity(Texture image, Rectangle body){
         this.image = image;
         this.body = body;
     }
 
     // Constructor for chefs
-    entity(Texture image, Rectangle body, Stack<String> inventory){
+    Entity(Texture image, Rectangle body, Stack<String> inventory){
         this.image = image;
         this.body = body;
         this.inventory = inventory;
     }
 
     // Constructor for ingredient stations
-    entity(Texture image, Rectangle body, boolean isIngredientStation, String ingredient){
+    Entity(Texture image, Rectangle body, int stationType, String ingredient){
         this.image = image;
         this.body = body;
-        this.isIngredientStation = isIngredientStation;
+        this.stationType = stationType;
         this.ingredient = ingredient;
     }
 
     // Constructor for trash can
-    entity(Texture image, Rectangle body, boolean isTrashCan){
+    Entity(Texture image, Rectangle body, int stationType){
         this.image = image;
         this.body = body;
-        this.isTrashCan = isTrashCan;
+        this.stationType = stationType;
     }
 
 
