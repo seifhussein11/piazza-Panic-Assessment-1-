@@ -27,6 +27,7 @@ public class Game extends ApplicationAdapter {
 
     @Override
     public void create() {
+
         // Instantiating entities
         chef1 = new Chef(new Texture(Gdx.files.internal("chef1.png")),
                 new Rectangle(0, 10, 48, 48), new Stack<String>());
@@ -72,6 +73,7 @@ public class Game extends ApplicationAdapter {
     @Override
     public void render() {
 
+        // Drawing elements on screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -96,31 +98,36 @@ public class Game extends ApplicationAdapter {
 
         batch.end();
 
-
-        // Collisions
+        // Collision
         for (Entity e : entities) {
-            if ((e != chef1) & e.body.overlaps(chef1.body)) {
-                chef1.body.x = chef1.prevx;
-                chef1.body.y = chef1.prevy;
-            }
+            chef1.collide(e);
+            chef2.collide(e);
         }
 
-        for (Entity e : entities) {
-            if ((e != chef2) & e.body.overlaps(chef2.body)) {
-                chef2.body.x = chef2.prevx;
-                chef2.body.y = chef2.prevy;
+        // Controls
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+            chef1.movement();
+
+            for (Entity e : entities) {
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+                    chef1.interact(e, e.stationType, e.ingredient);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+                    chef2.interact(e, e.stationType, e.ingredient);
+                }
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-                chef1.movement();
-                chef1.interact(e, e.stationType, e.ingredient);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+            chef2.movement();
 
-            } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-                chef2.movement();
-                chef2.interact(e, e.stationType, e.ingredient);
+            for (Entity e : entities) {
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+                    chef1.interact(e, e.stationType, e.ingredient);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+                    chef2.interact(e, e.stationType, e.ingredient);
+                }
             }
-
         }
     }
 }
-

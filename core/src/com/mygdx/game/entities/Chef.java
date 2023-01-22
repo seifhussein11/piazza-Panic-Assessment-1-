@@ -11,24 +11,26 @@ import java.util.Stack;
 public class Chef extends Entity {
     public Chef(Texture image, Rectangle body, Stack<String> inventory) {
         super(image, body, inventory);
+        this.prevx = body.x;
+        this.prevy = body.y;
     }
 
     public void movement() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.prevx = this.body.x;
-            this.body.x -= 60 * Gdx.graphics.getDeltaTime();
+            this.body.x -= 200 * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.prevx = this.body.x;
-            this.body.x += 60 * Gdx.graphics.getDeltaTime();
+            this.body.x += 200 * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.prevy = this.body.y;
-            this.body.y += 60 * Gdx.graphics.getDeltaTime();
+            this.body.y += 200 * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             this.prevy = this.body.y;
-            this.body.y -= 60 * Gdx.graphics.getDeltaTime();
+            this.body.y -= 200 * Gdx.graphics.getDeltaTime();
         }
         if (this.body.x < 0) this.body.x = 0;
         if (this.body.x > 1280 - 48) this.body.x = 1280 - 48;
@@ -47,6 +49,13 @@ public class Chef extends Entity {
                 && distance(this, e) < 100 && !(this.inventory.isEmpty())) {
 
             this.inventory.pop();
+        }
+    }
+
+    public void collide(Entity e) {
+        if ((e != this) & e.body.overlaps(this.body)) {
+            this.body.x = this.prevx;
+            this.body.y = this.prevy;
         }
     }
 
