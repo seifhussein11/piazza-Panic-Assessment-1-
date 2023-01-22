@@ -11,7 +11,6 @@ public class Entity {
     public Stack<String> inventory;
     public float prevx = 0;
     public float prevy = 0;
-    public boolean collide = false;
     public int stationType = 0;
     public String ingredient;
 
