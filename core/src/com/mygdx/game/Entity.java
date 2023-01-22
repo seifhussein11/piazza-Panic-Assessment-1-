@@ -15,25 +15,26 @@ public class Entity {
     public int stationType = 0;
     public String ingredient;
 
-    Entity(){
+    Entity() {
         this.image = null;
         this.body = null;
     }
+
     // Constructor for generic collidable objects
-    Entity(Texture image, Rectangle body){
+    Entity(Texture image, Rectangle body) {
         this.image = image;
         this.body = body;
     }
 
     // Constructor for chefs
-    protected Entity(Texture image, Rectangle body, Stack<String> inventory){
+    protected Entity(Texture image, Rectangle body, Stack<String> inventory) {
         this.image = image;
         this.body = body;
         this.inventory = inventory;
     }
 
     // Constructor for ingredient stations
-    protected Entity(Texture image, Rectangle body, int stationType, String ingredient){
+    protected Entity(Texture image, Rectangle body, int stationType, String ingredient) {
         this.image = image;
         this.body = body;
         this.stationType = stationType;
@@ -41,7 +42,7 @@ public class Entity {
     }
 
     // Constructor for trash can
-    protected Entity(Texture image, Rectangle body, int stationType){
+    protected Entity(Texture image, Rectangle body, int stationType) {
         this.image = image;
         this.body = body;
         this.stationType = stationType;

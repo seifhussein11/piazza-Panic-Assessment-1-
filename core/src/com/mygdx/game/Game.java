@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.entities.Chef;
 import com.mygdx.game.entities.Station;
@@ -77,19 +76,24 @@ public class Game extends ApplicationAdapter {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
         batch.draw(chef1.image, chef1.body.x, chef1.body.y);
         batch.draw(chef2.image, chef2.body.x, chef2.body.y);
+
         batch.draw(grill.image, grill.body.x, grill.body.y);
         batch.draw(cooking.image, cooking.body.x, cooking.body.y);
         batch.draw(serve.image, serve.body.x, serve.body.y);
+
         batch.draw(burgerStorage.image, burgerStorage.body.x, burgerStorage.body.y);
         batch.draw(lettuceStorage.image, lettuceStorage.body.x, lettuceStorage.body.y);
         batch.draw(trash1.image, trash1.body.x, trash1.body.y);
+
         inventoryDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         inventoryDisplay.draw(batch, ("Chef 1: " + chef1.inventory.toString()
                 + " " + (4 - chef1.inventory.size()) + "/4"
                 + "\n\nChef 2: " + chef2.inventory.toString() +
                 " " + (4 - chef2.inventory.size()) + "/4"), 15, 700);
+
         batch.end();
 
 
@@ -99,22 +103,6 @@ public class Game extends ApplicationAdapter {
                 chef1.body.x = chef1.prevx;
                 chef1.body.y = chef1.prevy;
             }
-            // Adds ingredient to inventory
-            if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 0
-                    && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
-                    && distance(chef1, e) < 100 && chef1.inventory.size() < 4
-                    && e.ingredient != null) {
-
-                chef1.inventory.push(e.ingredient);
-                System.out.println("Chef 1: " + chef1.inventory);
-
-            } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 1
-                    && Gdx.input.isKeyPressed(Input.Keys.NUM_1)
-                    && distance(chef1, e) < 100 && !(chef1.inventory.isEmpty())) {
-
-                chef1.inventory.pop();
-                System.out.println("Chef 1: " + chef1.inventory);
-            }
         }
 
         for (Entity e : entities) {
@@ -123,76 +111,16 @@ public class Game extends ApplicationAdapter {
                 chef2.body.y = chef2.prevy;
             }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 0
-                    && Gdx.input.isKeyPressed(Input.Keys.NUM_2)
-                    && distance(chef2, e) < 100 && chef2.inventory.size() < 4
-                    && e.ingredient != null) {
+            if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+                chef1.movement();
+                chef1.interact(e, e.stationType, e.ingredient);
 
-                chef2.inventory.push(e.ingredient);
-                System.out.println("Chef 2: " + chef2.inventory);
-
-            } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 1
-                    && Gdx.input.isKeyPressed(Input.Keys.NUM_2)
-                    && distance(chef2, e) < 100 && !(chef2.inventory.isEmpty())) {
-
-                chef2.inventory.pop();
-                System.out.println("Chef 2: " + chef2.inventory);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+                chef2.movement();
+                chef2.interact(e, e.stationType, e.ingredient);
             }
 
         }
-
-        // Movement
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                chef1.prevx = chef1.body.x;
-                chef1.body.x -= 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                chef1.prevx = chef1.body.x;
-                chef1.body.x += 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                chef1.prevy = chef1.body.y;
-                chef1.body.y += 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                chef1.prevy = chef1.body.y;
-                chef1.body.y -= 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (chef1.body.x < 0) chef1.body.x = 0;
-            if (chef1.body.x > 1280 - 48) chef1.body.x = 1280 - 48;
-            if (chef1.body.y < 0) chef1.body.y = 0;
-            if (chef1.body.y > 720 - 48) chef1.body.y = 720 - 48;
-
-        } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                chef2.prevx = chef2.body.x;
-                chef2.body.x -= 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                chef2.prevx = chef2.body.x;
-                chef2.body.x += 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                chef2.prevy = chef2.body.y;
-                chef2.body.y += 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                chef2.prevy = chef2.body.y;
-                chef2.body.y -= 300 * Gdx.graphics.getDeltaTime();
-            }
-            if (chef2.body.x < 0) chef2.body.x = 0;
-            if (chef2.body.x > 1280 - 48) chef2.body.x = 1280 - 48;
-            if (chef2.body.y < 0) chef2.body.y = 0;
-            if (chef2.body.y > 720 - 48) chef2.body.y = 720 - 48;
-        }
-
     }
-
-    private double distance(Chef e1, Entity e2) {
-        // Manhattan distance
-        return (Math.abs(e1.body.x - e2.body.x)
-                + Math.abs(e1.body.y - e2.body.y));
-    }
-
 }
+

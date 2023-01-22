@@ -7,7 +7,7 @@ import com.mygdx.game.Entity;
 public class Station extends Entity {
 
     // Constructor for ingredient station
-    public Station(Texture image, Rectangle body, int stationType, String ingredient){
+    public Station(Texture image, Rectangle body, int stationType, String ingredient) {
         super(image, body, stationType, ingredient);
     }
 
