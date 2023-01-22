@@ -9,29 +9,31 @@ import com.mygdx.game.Entity;
 import java.util.Stack;
 
 public class Chef extends Entity {
-    public Chef(Texture image, Rectangle body, Stack<String> inventory) {
+    private float speed;
+    public Chef(Texture image, Rectangle body, Stack<String> inventory,
+                float speed) {
         super(image, body, inventory);
         this.prevx = body.x;
         this.prevy = body.y;
+        this.speed = speed;
     }
 
-    // integer multiplier (300) is the chef's walk speed
     public void movement() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.prevx = this.body.x;
-            this.body.x -= 300 * Gdx.graphics.getDeltaTime();
+            this.body.x -= this.speed * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.prevx = this.body.x;
-            this.body.x += 300 * Gdx.graphics.getDeltaTime();
+            this.body.x += this.speed * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.prevy = this.body.y;
-            this.body.y += 300 * Gdx.graphics.getDeltaTime();
+            this.body.y += this.speed * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             this.prevy = this.body.y;
-            this.body.y -= 300 * Gdx.graphics.getDeltaTime();
+            this.body.y -= this.speed * Gdx.graphics.getDeltaTime();
         }
         if (this.body.x < 0) this.body.x = 0;
         if (this.body.x > 1280 - 48) this.body.x = 1280 - 48;
@@ -50,8 +52,36 @@ public class Chef extends Entity {
                 && distance(this, e) < 100 && !(this.inventory.isEmpty())) {
 
             this.inventory.pop();
+            e.trashScore++;
+
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 2
+                && distance(this, e) < 100
+                && !(this.inventory.isEmpty())
+                && this.inventory.peek().equals("Raw Patty")) {
+
+            this.inventory.pop();
+            this.inventory.push("Cooked Patty");
+
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 3
+                && distance(this, e) < 100
+                && !(this.inventory.isEmpty())
+                && this.inventory.peek().equals("Lettuce")) {
+            this.inventory.pop();
+            this.inventory.push("Chopped Lettuce");
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 4
+                && distance(this, e) < 100
+                && this.inventory.contains("Cooked Patty") &&
+                this.inventory.contains("Chopped Lettuce") &&
+                this.inventory.contains("Burger Bun")) {
+
+            this.inventory.remove("Cooked Patty");
+            this.inventory.remove("Chopped Lettuce");
+            this.inventory.remove("Burger Bun");
+            this.inventory.push("Burger");
         }
+
     }
+
 
     public void collide(Entity e) {
         if ((e != this) & e.body.overlaps(this.body)) {
@@ -64,5 +94,6 @@ public class Chef extends Entity {
         // Manhattan distance
         return (Math.abs(e1.body.x - e2.body.x)
                 + Math.abs(e1.body.y - e2.body.y));
+
     }
 }

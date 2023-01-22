@@ -3,9 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Entity {
+    public ArrayList<String> stationInv;
     public Texture image;
     public Rectangle body;
     public Stack<String> inventory;
@@ -13,6 +15,8 @@ public class Entity {
     public float prevy = 0;
     public int stationType = 0;
     public String ingredient;
+
+    public int trashScore;
 
     // Constructor for generic collidable objects
     Entity(Texture image, Rectangle body) {
@@ -36,10 +40,18 @@ public class Entity {
     }
 
     // Constructor for trash can
-    protected Entity(Texture image, Rectangle body, int stationType) {
+    protected Entity(Texture image, Rectangle body, int stationType, int trashScore) {
         this.image = image;
         this.body = body;
         this.stationType = stationType;
+        this.trashScore = trashScore;
+    }
+
+    protected Entity(Texture image, Rectangle body, int stationType, ArrayList<String> stationInv) {
+        this.image = image;
+        this.body = body;
+        this.stationType = stationType;
+        this.stationInv = stationInv;
     }
 
 
