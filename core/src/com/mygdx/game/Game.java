@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -24,6 +25,8 @@ public class Game extends ApplicationAdapter {
     private Station burgerStorage, lettuceStorage, bunStorage,
             trash1, grill, chopping, serve, prep;
     private List<Entity> entities;
+    private static Texture background;
+    private static Sprite backgroundSprite;
     BitmapFont inventoryDisplay, timer;
     long startTime;
 
@@ -84,6 +87,9 @@ public class Game extends ApplicationAdapter {
         camera.setToOrtho(false, 1280, 720);
         batch = new SpriteBatch();
 
+        background = new Texture(Gdx.files.internal("PiazzaPanicMap.png"));
+        backgroundSprite = new Sprite(background);
+
     }
 
     @Override
@@ -94,6 +100,8 @@ public class Game extends ApplicationAdapter {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
+        backgroundSprite.draw(batch);
 
         batch.draw(chef1.image, chef1.body.x, chef1.body.y);
         batch.draw(chef2.image, chef2.body.x, chef2.body.y);
@@ -116,6 +124,8 @@ public class Game extends ApplicationAdapter {
                 "\n\nItems trashed: " + trash1.trashScore), 15, 700);
         timer.draw(batch,("Time: "+(System.currentTimeMillis()-startTime)/1000),1200,700);
         batch.end();
+
+
 
         // Collision
         for (Entity e : entities) {
