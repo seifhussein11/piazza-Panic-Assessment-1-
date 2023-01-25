@@ -10,6 +10,7 @@ import java.util.Stack;
 
 public class Chef extends Entity {
     private float speed;
+
     public Chef(Texture image, Rectangle body, Stack<String> inventory,
                 float speed) {
         super(image, body, inventory);
@@ -35,10 +36,10 @@ public class Chef extends Entity {
             this.prevy = this.body.y;
             this.body.y -= this.speed * Gdx.graphics.getDeltaTime();
         }
-        if (this.body.x < 0) this.body.x = 0;
-        if (this.body.x > 1280 - 48) this.body.x = 1280 - 48;
-        if (this.body.y < 0) this.body.y = 0;
-        if (this.body.y > 720 - 48) this.body.y = 720 - 48;
+        if (this.body.x < 36) this.body.x = 36;
+        if (this.body.x > 804 - 48) this.body.x = 804 - 48;
+        if (this.body.y < 36) this.body.y = 36;
+        if (this.body.y > 652 - 48) this.body.y = 652 - 48;
     }
 
     public void interact(Entity e, int stationType, String ingredient) {
@@ -68,6 +69,7 @@ public class Chef extends Entity {
                 && this.inventory.peek().equals("Lettuce")) {
             this.inventory.pop();
             this.inventory.push("Chopped Lettuce");
+
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 4
                 && distance(this, e) < 100
                 && this.inventory.contains("Cooked Patty") &&
@@ -78,10 +80,23 @@ public class Chef extends Entity {
             this.inventory.remove("Chopped Lettuce");
             this.inventory.remove("Burger Bun");
             this.inventory.push("Burger");
+
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 5
+                && distance(this, e) < 90
+                && !(this.inventory.isEmpty())
+                && e.stationInv.size() < 4) {
+
+            e.stationInv.push(this.inventory.pop());
+
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.F) && e.stationType == 5
+                && distance(this, e) < 90
+                && this.inventory.size() < 4
+                && !(e.stationInv.isEmpty())) {
+            this.inventory.push(e.stationInv.pop());
         }
 
-    }
 
+    }
 
     public void collide(Entity e) {
         if ((e != this) & e.body.overlaps(this.body)) {

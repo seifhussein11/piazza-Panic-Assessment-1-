@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Entity;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Station extends Entity {
 
@@ -22,9 +23,14 @@ public class Station extends Entity {
 
     // Constructor for cooking station
     // stationType = 2 for grill,
-    // 3 for chopping board, 4 for prep station
+    // 3 for chopping board, 4 for prep station,
     public Station(Texture image, Rectangle body, int stationType,
-                   ArrayList<String> stationInv) {
+                   Stack<String> stationInv) {
         super(image, body, stationType, stationInv);
+    }
+
+    public Station(Rectangle body, int stationType,
+                   Stack<String> stationInv) {
+        super(body,stationType,stationInv);
     }
 }

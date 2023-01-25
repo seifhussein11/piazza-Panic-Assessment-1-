@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Entity {
-    public ArrayList<String> stationInv;
+    public Stack<String> stationInv;
     public Texture image;
     public Rectangle body;
     public Stack<String> inventory;
@@ -18,7 +18,11 @@ public class Entity {
 
     public int trashScore;
 
-    // Constructor for generic collidable objects
+    // Constructor for invisible walls (clips)
+    Entity(Rectangle body) {
+        this.body = body;
+    }
+    // Constructor for generic collidable objects (static props)
     Entity(Texture image, Rectangle body) {
         this.image = image;
         this.body = body;
@@ -47,8 +51,14 @@ public class Entity {
         this.trashScore = trashScore;
     }
 
-    protected Entity(Texture image, Rectangle body, int stationType, ArrayList<String> stationInv) {
+    protected Entity(Texture image, Rectangle body, int stationType, Stack<String> stationInv) {
         this.image = image;
+        this.body = body;
+        this.stationType = stationType;
+        this.stationInv = stationInv;
+    }
+
+    protected Entity(Rectangle body, int stationType, Stack<String> stationInv) {
         this.body = body;
         this.stationType = stationType;
         this.stationInv = stationInv;
