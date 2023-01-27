@@ -116,7 +116,7 @@ public class Chef extends Entity {
             this.inventory.pop();
             e.score++;
             Customer.state = 3;
-            Customer.order = "None";
+            Customer.order = "";
         }
 
 
