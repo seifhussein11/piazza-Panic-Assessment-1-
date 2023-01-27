@@ -15,10 +15,11 @@ public class Station extends Entity {
         super(image, body, stationType, ingredient);
     }
 
-    // Constructor for trash can
+    // Constructor for trash can and serving area
     // stationType = 1 for trash can
-    public Station(Texture image, Rectangle body, int stationType, int trashScore) {
-        super(image, body, stationType, trashScore);
+    // stationType = 6 for serving area
+    public Station(Texture image, Rectangle body, int stationType, int score) {
+        super(image, body, stationType, score);
     }
 
     // Constructor for cooking station

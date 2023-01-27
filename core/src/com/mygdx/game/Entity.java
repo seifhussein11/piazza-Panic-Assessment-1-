@@ -15,14 +15,15 @@ public class Entity{
     public float prevy = 0;
     public int stationType = 0;
     public String ingredient;
-    public int trashScore;
+    public int score;
 
     // Constructor for invisible walls (clips)
     Entity(Rectangle body) {
         this.body = body;
     }
+
     // Constructor for generic collidable objects (static props)
-    Entity(Texture image, Rectangle body) {
+    protected Entity(Texture image, Rectangle body) {
         this.image = image;
         this.body = body;
     }
@@ -42,12 +43,12 @@ public class Entity{
         this.ingredient = ingredient;
     }
 
-    // Constructor for trash can
-    protected Entity(Texture image, Rectangle body, int stationType, int trashScore) {
+    // Constructor for trash can and serving area
+    protected Entity(Texture image, Rectangle body, int stationType, int score) {
         this.image = image;
         this.body = body;
         this.stationType = stationType;
-        this.trashScore = trashScore;
+        this.score = score;
     }
 
     protected Entity(Texture image, Rectangle body, int stationType, Stack<String> stationInv) {
@@ -62,6 +63,5 @@ public class Entity{
         this.stationType = stationType;
         this.stationInv = stationInv;
     }
-
 
 }

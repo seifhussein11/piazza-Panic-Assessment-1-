@@ -53,7 +53,7 @@ public class Chef extends Entity {
                 && distance(this, e) < 100 && !(this.inventory.isEmpty())) {
 
             this.inventory.pop();
-            e.trashScore++;
+            e.score++;
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 2
                 && distance(this, e) < 100
@@ -85,6 +85,18 @@ public class Chef extends Entity {
             this.inventory.remove("Burger Bun");
             this.inventory.push("Burger");
 
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 4 &&
+                distance(this, e) < 100 && this.inventory.contains("Chopped Lettuce")) {
+
+            this.inventory.remove("Chopped Lettuce");
+            if (this.inventory.contains("Chopped Lettuce")) {
+                this.speed = 0;
+                this.inventory.remove("Chopped Lettuce");
+                this.inventory.push("Salad");
+            } else {
+                this.inventory.push("Chopped Lettuce");
+            }
+
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 5
                 && distance(this, e) < 90
                 && !(this.inventory.isEmpty())
@@ -97,6 +109,14 @@ public class Chef extends Entity {
                 && this.inventory.size() < 4
                 && !(e.stationInv.isEmpty())) {
             this.inventory.push(e.stationInv.pop());
+
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 6
+                && distance(this, e) < 100
+                && this.inventory.peek().equals(Customer.order)) {
+            this.inventory.pop();
+            e.score++;
+            Customer.state = 3;
+            Customer.order = "None";
         }
 
 
@@ -104,9 +124,14 @@ public class Chef extends Entity {
 
     public void collide(Entity e) {
         if ((e != this) & e.body.overlaps(this.body)) {
+            float test = this.body.x;
             this.body.x = this.prevx;
-            this.body.y = this.prevy;
+            if (e.body.overlaps(this.body)) {
+                this.body.x = test;
+                this.body.y = this.prevy;
+            }
         }
+
     }
 
     private double distance(Chef e1, Entity e2) {
