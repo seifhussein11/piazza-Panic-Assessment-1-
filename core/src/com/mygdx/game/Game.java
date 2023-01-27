@@ -126,7 +126,7 @@ public class Game extends ApplicationAdapter {
 
     @Override
     public void render() {
-        if (serve.score < 1 || customer.body.y > -60) {
+        if (serve.score < 5 || customer.body.y > -60) {
             // Updates and displays correct information on the UI at all times
             if ((startInteractc1 + 5 - deltaTime) < 0
                     && (startInteractc2 + 5 - deltaTime) < 0) {
