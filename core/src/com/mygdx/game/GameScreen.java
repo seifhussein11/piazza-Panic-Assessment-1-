@@ -15,6 +15,7 @@ import com.mygdx.game.entities.Customer;
 import com.mygdx.game.entities.Station;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -36,7 +37,7 @@ public class GameScreen implements Screen {
     private final int maxOrders;
 
 
-    public GameScreen(PiazzaPanic game) {
+    public GameScreen(PiazzaPanic game){
         startTime = System.currentTimeMillis();
         // Instantiating entities
         chef1 = new Chef(new Texture(Gdx.files.internal("chef1.png")),
@@ -247,7 +248,7 @@ public class GameScreen implements Screen {
                             || (e.stationType == 3 && chef1.inventory.peek() == "Lettuce")
                             || (e.stationType == 4 && chef1.inventory.containsAll(burgerRecipe))
                             || (e.stationType == 4
-                            && chef1.inventory.containsAll(saladRecipe)))) {
+                            && Collections.frequency(chef1.inventory, "Chopped Lettuce") >= 2))) {
 
                         chef1.interact(e, e.stationType, e.ingredient);
                         startInteractc1 = deltaTime;
@@ -258,7 +259,7 @@ public class GameScreen implements Screen {
                     }
                 }
 
-                // Chef 2 controls
+            // Chef 2 controls
             }
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
                 chef2.movement();
@@ -270,7 +271,7 @@ public class GameScreen implements Screen {
                             || (e.stationType == 3 && chef2.inventory.peek() == "Lettuce")
                             || (e.stationType == 4 && chef2.inventory.containsAll(burgerRecipe))
                             || (e.stationType == 4
-                            && chef2.inventory.containsAll(saladRecipe)))) {
+                            && Collections.frequency(chef2.inventory, "Chopped Lettuce") >= 2))) {
 
                         chef2.interact(e, e.stationType, e.ingredient);
                         startInteractc2 = deltaTime;
