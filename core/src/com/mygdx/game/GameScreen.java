@@ -20,22 +20,21 @@ import java.util.Stack;
 
 public class GameScreen implements Screen {
     PiazzaPanic game;
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
-    private Entity wall1, wall2, wall3, wall4, tableCollider;
-    private Chef chef1, chef2;
-    private Customer customer;
-    private Station burgerStorage, lettuceStorage, bunStorage,
-            trash, grill, chopping, serve, prep, tableInv;
+    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
+    private final Chef chef1, chef2;
+    private final Customer customer;
+    private final Station burgerStorage, lettuceStorage, bunStorage,
+            trash, grill, chopping, serve, prep, kitchenTable;
     private List<Entity> entities;
     private static Sprite backgroundSprite;
-    private List<String> burgerRecipe, saladRecipe;
+    private final List<String> burgerRecipe, saladRecipe;
     BitmapFont inventoryDisplay, timer, orderRequest;
     static float deltaTime = 0.0f;
     float startInteractc1 = -5, startInteractc2 = -5;
     long startTime;
     String inventoryUIString;
-    private int maxOrders;
+    private final int maxOrders;
 
 
 
@@ -85,17 +84,17 @@ public class GameScreen implements Screen {
                 new Rectangle(72, 384, 35, 55),
                 1, 0);
 
-        wall1 = new Entity(new Rectangle(36, 350, 248, 36));
+        Entity wall1 = new Entity(new Rectangle(36, 350, 248, 36));
 
-        wall2 = new Entity(new Rectangle(380, 350, 470, 36));
+        Entity wall2 = new Entity(new Rectangle(380, 350, 470, 36));
 
-        wall3 = new Entity(new Rectangle(36, 386, 36, 220));
+        Entity wall3 = new Entity(new Rectangle(36, 386, 36, 220));
 
-        wall4 = new Entity(new Rectangle(768, 386, 36, 220));
+        Entity wall4 = new Entity(new Rectangle(768, 386, 36, 220));
 
-        tableCollider = new Entity(new Rectangle(110, 454, 69, 98));
+        Entity tableCollider = new Entity(new Rectangle(110, 454, 69, 98));
 
-        tableInv = new Station(new Rectangle(146, 490, 10, 10),
+        kitchenTable = new Station(new Rectangle(146, 490, 10, 10),
                 5, new Stack<String>());
 
         burgerRecipe = Arrays.asList("Burger Bun", "Chopped Lettuce", "Cooked Patty");
@@ -105,7 +104,7 @@ public class GameScreen implements Screen {
         // MUST ADD ENTITIES TO THIS LIST IN ORDER TO ENABLE INTERACTION/COLLISIONS
         entities = Arrays.asList(wall1, wall2, wall3, wall4, tableCollider, chef1, chef2,
                 customer, grill, chopping, serve, prep, burgerStorage,
-                lettuceStorage, bunStorage, trash, tableInv);
+                lettuceStorage, bunStorage, trash, kitchenTable);
 
         inventoryDisplay = new BitmapFont();
         inventoryDisplay.getData().markupEnabled = true;
@@ -151,8 +150,8 @@ public class GameScreen implements Screen {
                         " " + (4 - chef2.inventory.size()) + "/4" + "\n"
                         + "Chef 2 is not using a cooking station" +
 
-                        "\nTable contains: " + tableInv.stationInv.toString() + " " +
-                        (4 - tableInv.stationInv.size()) + "/4");
+                        "\nTable contains: " + kitchenTable.stationInv.toString() + " " +
+                        (4 - kitchenTable.stationInv.size()) + "/4");
 
             } else if ((startInteractc1 + 5 - deltaTime > 0)
                     && (startInteractc2 + 5 - deltaTime < 0)) {
@@ -165,8 +164,8 @@ public class GameScreen implements Screen {
                         " " + (4 - chef2.inventory.size()) + "/4" + "\n"
                         + "Chef 2 is not using a cooking station" +
 
-                        "\nTable contains: " + tableInv.stationInv.toString() + " " +
-                        (4 - tableInv.stationInv.size()) + "/4");
+                        "\nTable contains: " + kitchenTable.stationInv.toString() + " " +
+                        (4 - kitchenTable.stationInv.size()) + "/4");
 
             } else if ((startInteractc1 + 5 - deltaTime < 0)
                     && (startInteractc2 + 5 - deltaTime > 0)) {
@@ -179,8 +178,8 @@ public class GameScreen implements Screen {
                         " " + (4 - chef2.inventory.size()) + "/4" + "\n"
                         + "Chef 2 cooking: " + (startInteractc2 + 5 - deltaTime) +
 
-                        "\nTable contains: " + tableInv.stationInv.toString() + " " +
-                        (4 - tableInv.stationInv.size()) + "/4");
+                        "\nTable contains: " + kitchenTable.stationInv.toString() + " " +
+                        (4 - kitchenTable.stationInv.size()) + "/4");
 
             } else {
                 inventoryUIString = ("Chef 1: " + chef1.inventory.toString()
@@ -191,8 +190,8 @@ public class GameScreen implements Screen {
                         " " + (4 - chef2.inventory.size()) + "/4" + "\n"
                         + "Chef 2 cooking: " + (startInteractc2 + 5 - deltaTime) +
 
-                        "\nTable contains: " + tableInv.stationInv.toString() + " " +
-                        (4 - tableInv.stationInv.size()) + "/4");
+                        "\nTable contains: " + kitchenTable.stationInv.toString() + " " +
+                        (4 - kitchenTable.stationInv.size()) + "/4");
             }
             // Drawing elements on screen
             ScreenUtils.clear(0.4255f, 0.4255f, 0.4255f, 1);
