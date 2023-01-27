@@ -122,7 +122,7 @@ public class Game extends ApplicationAdapter {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
 
-        maxOrders = 5;
+        maxOrders = 2;
 
     }
 
@@ -215,7 +215,7 @@ public class Game extends ApplicationAdapter {
 
             timer.draw(batch, ("Time: " + ((System.currentTimeMillis() - startTime) / 1000) +
                     "\n\nItems trashed: " + trash.score +
-                    "\n\nOrders served: " + serve.score + "/" + 5),
+                    "\n\nOrders served: " + serve.score + "/" + maxOrders),
                     705, 810);
             timer.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                     Texture.TextureFilter.Linear);
