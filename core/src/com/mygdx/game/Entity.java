@@ -3,10 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
-public class Entity{
+public class Entity {
     public Stack<String> stationInv;
     public Texture image;
     public Rectangle body;
@@ -18,7 +17,7 @@ public class Entity{
     public int score;
 
     // Constructor for invisible walls (clips)
-    Entity(Rectangle body) {
+    protected Entity(Rectangle body) {
         this.body = body;
     }
 
@@ -51,6 +50,7 @@ public class Entity{
         this.score = score;
     }
 
+    // Constructor for ??
     protected Entity(Texture image, Rectangle body, int stationType, Stack<String> stationInv) {
         this.image = image;
         this.body = body;
@@ -58,6 +58,9 @@ public class Entity{
         this.stationInv = stationInv;
     }
 
+    // Constructor for making parts of the environment interactable
+    // (recommended: used for cooking stations as they are drawn on
+    // the background and don't need a separate texture)
     protected Entity(Rectangle body, int stationType, Stack<String> stationInv) {
         this.body = body;
         this.stationType = stationType;

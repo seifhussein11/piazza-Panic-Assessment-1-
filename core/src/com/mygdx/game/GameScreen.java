@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Stack;
 
 public class GameScreen implements Screen {
-    PiazzaPanic game;
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
     private final Chef chef1, chef2;
@@ -37,8 +36,7 @@ public class GameScreen implements Screen {
     private final int maxOrders;
 
 
-
-    public GameScreen(PiazzaPanic game){
+    public GameScreen(PiazzaPanic game) {
         startTime = System.currentTimeMillis();
         // Instantiating entities
         chef1 = new Chef(new Texture(Gdx.files.internal("chef1.png")),
@@ -125,10 +123,7 @@ public class GameScreen implements Screen {
 
         maxOrders = 2;
 
-
-
     }
-
 
     @Override
     public void show() {
@@ -302,8 +297,6 @@ public class GameScreen implements Screen {
             orderRequest.draw(batch, ("\n\n Scenario Complete!"), 350, 810);
             batch.end();
         }
-
-
 
     }
 

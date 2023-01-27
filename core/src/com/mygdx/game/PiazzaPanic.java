@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class PiazzaPanic extends Game {
     private OrthographicCamera camera;
     SpriteBatch batch;
-
     public BitmapFont font;
 
     @Override
@@ -25,13 +24,9 @@ public class PiazzaPanic extends Game {
     @Override
     public void render() {
         super.render();
-
-
-
-
     }
 
-    public void dispose(){
+    public void dispose() {
         batch.dispose();
         font.dispose();
     }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Entity;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Chef extends Entity {
@@ -41,6 +42,7 @@ public class Chef extends Entity {
         if (this.body.y < 36) this.body.y = 36;
         if (this.body.y > 652 - 48) this.body.y = 652 - 48;
     }
+
 
     public void interact(Entity e, int stationType, String ingredient) {
         if (stationType == 0 && Gdx.input.isKeyJustPressed(Input.Keys.E)
@@ -86,16 +88,11 @@ public class Chef extends Entity {
             this.inventory.push("Burger");
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 4 &&
-                distance(this, e) < 100 && this.inventory.contains("Chopped Lettuce")) {
+                distance(this, e) < 100 && this.inventory.containsAll(Arrays.asList("Chopped Lettuce", "Chopped Lettuce"))) {
 
-            this.inventory.remove("Chopped Lettuce");
-            if (this.inventory.contains("Chopped Lettuce")) {
-                this.speed = 0;
-                this.inventory.remove("Chopped Lettuce");
-                this.inventory.push("Salad");
-            } else {
-                this.inventory.push("Chopped Lettuce");
-            }
+            this.speed = 0;
+            this.inventory.removeAll(Arrays.asList("Chopped Lettuce", "Chopped Lettuce"));
+            this.inventory.push("Salad");
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 5
                 && distance(this, e) < 90
@@ -108,11 +105,13 @@ public class Chef extends Entity {
                 && distance(this, e) < 90
                 && this.inventory.size() < 4
                 && !(e.stationInv.isEmpty())) {
+
             this.inventory.push(e.stationInv.pop());
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 6
                 && distance(this, e) < 100
                 && this.inventory.peek().equals(Customer.order)) {
+
             this.inventory.pop();
             e.score++;
             Customer.state = 3;
@@ -124,9 +123,12 @@ public class Chef extends Entity {
 
     public void collide(Entity e) {
         if ((e != this) & e.body.overlaps(this.body)) {
+
             float test = this.body.x;
             this.body.x = this.prevx;
+
             if (e.body.overlaps(this.body)) {
+
                 this.body.x = test;
                 this.body.y = this.prevy;
             }

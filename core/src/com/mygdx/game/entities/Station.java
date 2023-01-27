@@ -34,6 +34,6 @@ public class Station extends Entity {
     // stationType = 5 for table
     public Station(Rectangle body, int stationType,
                    Stack<String> stationInv) {
-        super(body,stationType,stationInv);
+        super(body, stationType, stationInv);
     }
 }
