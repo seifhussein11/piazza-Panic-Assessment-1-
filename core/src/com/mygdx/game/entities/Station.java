@@ -29,6 +29,8 @@ public class Station extends Entity {
         super(image, body, stationType, stationInv);
     }
 
+    // Constructor for a table
+    // stationType = 5 for table
     public Station(Rectangle body, int stationType,
                    Stack<String> stationInv) {
         super(body,stationType,stationInv);

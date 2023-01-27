@@ -60,6 +60,7 @@ public class Chef extends Entity {
                 && !(this.inventory.isEmpty())
                 && this.inventory.peek().equals("Raw Patty")) {
 
+            this.speed = 0;
             this.inventory.pop();
             this.inventory.push("Cooked Patty");
 
@@ -67,6 +68,8 @@ public class Chef extends Entity {
                 && distance(this, e) < 100
                 && !(this.inventory.isEmpty())
                 && this.inventory.peek().equals("Lettuce")) {
+
+            this.speed = 0;
             this.inventory.pop();
             this.inventory.push("Chopped Lettuce");
 
@@ -76,6 +79,7 @@ public class Chef extends Entity {
                 this.inventory.contains("Chopped Lettuce") &&
                 this.inventory.contains("Burger Bun")) {
 
+            this.speed = 0;
             this.inventory.remove("Cooked Patty");
             this.inventory.remove("Chopped Lettuce");
             this.inventory.remove("Burger Bun");
@@ -110,5 +114,13 @@ public class Chef extends Entity {
         return (Math.abs(e1.body.x - e2.body.x)
                 + Math.abs(e1.body.y - e2.body.y));
 
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public float getSpeed() {
+        return this.speed;
     }
 }

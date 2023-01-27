@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Entity {
+public class Entity{
     public Stack<String> stationInv;
     public Texture image;
     public Rectangle body;
@@ -15,7 +15,6 @@ public class Entity {
     public float prevy = 0;
     public int stationType = 0;
     public String ingredient;
-
     public int trashScore;
 
     // Constructor for invisible walls (clips)

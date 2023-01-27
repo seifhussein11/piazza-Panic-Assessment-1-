@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,7 +29,10 @@ public class Game extends ApplicationAdapter {
     private List<Entity> entities;
     private static Sprite backgroundSprite;
     BitmapFont inventoryDisplay, timer;
+    static float deltaTime = 0.0f;
+    float startInteractc1 = -5, startInteractc2 = -5;
     long startTime;
+    String inventoryUIString;
 
     @Override
     public void create() {
@@ -73,17 +77,17 @@ public class Game extends ApplicationAdapter {
                 new Rectangle(72, 384, 35, 55),
                 1, 0);
 
-        wall1 = new Entity(new Rectangle(36,350,248,36));
+        wall1 = new Entity(new Rectangle(36, 350, 248, 36));
 
-        wall2 = new Entity(new Rectangle(380,350,470,36));
+        wall2 = new Entity(new Rectangle(380, 350, 470, 36));
 
-        wall3 = new Entity(new Rectangle(36,386,36,220));
+        wall3 = new Entity(new Rectangle(36, 386, 36, 220));
 
-        wall4 = new Entity(new Rectangle(768,386,36,220));
+        wall4 = new Entity(new Rectangle(768, 386, 36, 220));
 
-        tableCollider = new Entity(new Rectangle(110,454,69,98));
+        tableCollider = new Entity(new Rectangle(110, 454, 69, 98));
 
-        tableInv = new Station(new Rectangle(146,490, 10,10),
+        tableInv = new Station(new Rectangle(146, 490, 10, 10),
                 5, new Stack<String>());
 
         // MUST ADD ENTITIES TO THIS LIST IN ORDER TO ENABLE INTERACTION/COLLISIONS
@@ -91,6 +95,7 @@ public class Game extends ApplicationAdapter {
                 chopping, serve, prep, burgerStorage, lettuceStorage, bunStorage, trash, tableInv);
 
         inventoryDisplay = new BitmapFont();
+        inventoryDisplay.getData().markupEnabled = true;
         inventoryDisplay.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                 Texture.TextureFilter.Linear);
 
@@ -102,15 +107,70 @@ public class Game extends ApplicationAdapter {
 
         Texture background = new Texture(Gdx.files.internal("PiazzaPanicMap.png"));
         backgroundSprite = new Sprite(background);
-        backgroundSprite.setPosition(0,-13);
+        backgroundSprite.setPosition(0, -33);
 
     }
 
     @Override
     public void render() {
 
+        // Updates and displays correct information on the UI at all times
+        if ((startInteractc1 + 5 - deltaTime) < 0
+                && (startInteractc2 + 5 - deltaTime) < 0) {
+
+            inventoryUIString = ("Chef 1: " + chef1.inventory.toString()
+                    + " " + (4 - chef1.inventory.size()) + "/4" + "\n"
+                    + "Chef 1 is not using a cooking station" +
+
+                    "\n\nChef 2: " + chef2.inventory.toString() +
+                    " " + (4 - chef2.inventory.size()) + "/4" + "\n"
+                    + "Chef 2 is not using a cooking station" +
+
+                    "\nTable contains: " + tableInv.stationInv.toString() + " " +
+                    (4 - tableInv.stationInv.size()) + "/4");
+
+        } else if ((startInteractc1 + 5 - deltaTime > 0)
+                && (startInteractc2 + 5 - deltaTime < 0)) {
+
+            inventoryUIString = ("Chef 1: " + chef1.inventory.toString()
+                    + " " + (4 - chef1.inventory.size()) + "/4" + "\n"
+                    + "Chef 1 cooking: " + (startInteractc1 + 5 - deltaTime) +
+
+                    "\n\nChef 2: " + chef2.inventory.toString() +
+                    " " + (4 - chef2.inventory.size()) + "/4" + "\n"
+                    + "Chef 2 is not using a cooking station" +
+
+                    "\nTable contains: " + tableInv.stationInv.toString() + " " +
+                    (4 - tableInv.stationInv.size()) + "/4");
+
+        } else if ((startInteractc1 + 5 - deltaTime < 0)
+                && (startInteractc2 + 5 - deltaTime > 0)) {
+
+            inventoryUIString = ("Chef 1: " + chef1.inventory.toString()
+                    + " " + (4 - chef1.inventory.size()) + "/4" + "\n"
+                    + "Chef 1 is not using a cooking station" +
+
+                    "\n\nChef 2: " + chef2.inventory.toString() +
+                    " " + (4 - chef2.inventory.size()) + "/4" + "\n"
+                    + "Chef 2 cooking: " + (startInteractc2 + 5 - deltaTime) +
+
+                    "\nTable contains: " + tableInv.stationInv.toString() + " " +
+                    (4 - tableInv.stationInv.size()) + "/4");
+
+        } else {
+            inventoryUIString = ("Chef 1: " + chef1.inventory.toString()
+                    + " " + (4 - chef1.inventory.size()) + "/4" + "\n"
+                    + "Chef 1 cooking: " + (startInteractc1 + 5 - deltaTime) +
+
+                    "\n\nChef 2: " + chef2.inventory.toString() +
+                    " " + (4 - chef2.inventory.size()) + "/4" + "\n"
+                    + "Chef 2 cooking: " + (startInteractc2 + 5 - deltaTime) +
+
+                    "\nTable contains: " + tableInv.stationInv.toString() + " " +
+                    (4 - tableInv.stationInv.size()) + "/4");
+        }
         // Drawing elements on screen
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(0.4255f, 0.4255f, 0.4255f, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -129,23 +189,18 @@ public class Game extends ApplicationAdapter {
         batch.draw(bunStorage.image, bunStorage.body.x, bunStorage.body.y);
         batch.draw(trash.image, trash.body.x, trash.body.y);
 
-        inventoryDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        inventoryDisplay.draw(batch,
+        inventoryDisplay.setColor(1, 1, 1, 1);
+        inventoryDisplay.draw(batch, inventoryUIString, 15, 812);
 
-                ("Chef 1: " + chef1.inventory.toString()
-                + " " + (4 - chef1.inventory.size()) + "/4" + "\n\n" +
-
-                "Chef 2: " + chef2.inventory.toString() +
-                " " + (4 - chef2.inventory.size()) + "/4" + "\n\n" +
-
-                "Table contains: " + tableInv.stationInv.toString() + " " +
-                (4 - tableInv.stationInv.size()) + "/4"), 15, 810);
-
-        timer.draw(batch,("Time: "+((System.currentTimeMillis()-startTime)/1000) +
-                "\n\nItems trashed: " + trash.trashScore),705,810);
+        timer.draw(batch, ("Time: " + ((System.currentTimeMillis() - startTime) / 1000) +
+                "\n\nItems trashed: " + trash.trashScore), 705, 810);
         timer.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                 Texture.TextureFilter.Linear);
         batch.end();
+
+        // Internal clock
+        deltaTime += Gdx.graphics.getDeltaTime();
+        System.out.println(deltaTime);
 
 
         // Collision
@@ -154,20 +209,56 @@ public class Game extends ApplicationAdapter {
             chef2.collide(e);
         }
 
-        // Controls
+
+        // Chef 1 controls
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
             chef1.movement();
 
             for (Entity e : entities) {
-                chef1.interact(e, e.stationType, e.ingredient);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.E) && distance(chef1, e) < 100
+                        && !(chef1.inventory.isEmpty()) && e.stationType != 0
+                        && (e.stationType == 2 || e.stationType == 3
+                        || e.stationType == 4)) {
+                    chef1.interact(e, e.stationType, e.ingredient);
+                    startInteractc1 = deltaTime;
+                } else if (e.stationType == 0 || e.stationType == 1
+                        || e.stationType == 5) {
+                    chef1.interact(e, e.stationType, e.ingredient);
+                }
             }
 
+        // Chef 2 controls
         } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
             chef2.movement();
 
             for (Entity e : entities) {
-                chef2.interact(e, e.stationType, e.ingredient);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.E) && distance(chef2, e) < 100
+                        && !(chef2.inventory.isEmpty()) && e.stationType != 0
+                        && (e.stationType == 2 || e.stationType == 3
+                        || e.stationType == 4)) {
+                    chef2.interact(e, e.stationType, e.ingredient);
+                    startInteractc2 = deltaTime;
+                } else if (e.stationType == 0 || e.stationType == 1
+                        || e.stationType == 5) {
+                    chef2.interact(e, e.stationType, e.ingredient);
+                }
             }
         }
+
+        if (deltaTime > startInteractc1 + 5) {
+            chef1.setSpeed(300);
+        }
+
+        if (deltaTime > startInteractc2 + 5) {
+            chef2.setSpeed(300);
+        }
+
+    }
+
+    private double distance(Chef e1, Entity e2) {
+        // Manhattan distance
+        return (Math.abs(e1.body.x - e2.body.x)
+                + Math.abs(e1.body.y - e2.body.y));
+
     }
 }
