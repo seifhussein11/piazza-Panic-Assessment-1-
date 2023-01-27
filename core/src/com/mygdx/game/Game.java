@@ -202,7 +202,7 @@ public class Game extends ApplicationAdapter {
             inventoryDisplay.setColor(1, 1, 1, 1);
             inventoryDisplay.draw(batch, inventoryUIString, 15, 812);
 
-            orderRequest.draw(batch, ("\n\nCustomer's Order: " + customer.order), 300, 810);
+            orderRequest.draw(batch, ("\n\nCustomer's Order: " + customer.order), 350, 810);
 
             timer.draw(batch, ("Time: " + ((System.currentTimeMillis() - startTime) / 1000) +
                     "\n\nItems trashed: " + trash.score + "\n\nOrders served: " + serve.score), 705, 810);
