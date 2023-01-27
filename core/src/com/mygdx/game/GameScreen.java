@@ -1,8 +1,8 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,12 +14,12 @@ import com.mygdx.game.entities.Chef;
 import com.mygdx.game.entities.Customer;
 import com.mygdx.game.entities.Station;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-public class Game extends ApplicationAdapter {
+public class GameScreen implements Screen {
+    PiazzaPanic game;
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Entity wall1, wall2, wall3, wall4, tableCollider;
@@ -36,8 +36,10 @@ public class Game extends ApplicationAdapter {
     long startTime;
     String inventoryUIString;
     private int maxOrders;
-    @Override
-    public void create() {
+
+
+
+    public GameScreen(PiazzaPanic game){
         startTime = System.currentTimeMillis();
         // Instantiating entities
         chef1 = new Chef(new Texture(Gdx.files.internal("chef1.png")),
@@ -124,10 +126,18 @@ public class Game extends ApplicationAdapter {
 
         maxOrders = 2;
 
+
+
+    }
+
+
+    @Override
+    public void show() {
+
     }
 
     @Override
-    public void render() {
+    public void render(float delta) {
         if (serve.score < maxOrders || customer.body.y > -60) {
             // Updates and displays correct information on the UI at all times
             if ((startInteractc1 + 5 - deltaTime) < 0
@@ -214,8 +224,8 @@ public class Game extends ApplicationAdapter {
                     Texture.TextureFilter.Linear);
 
             timer.draw(batch, ("Time: " + ((System.currentTimeMillis() - startTime) / 1000) +
-                    "\n\nItems trashed: " + trash.score +
-                    "\n\nOrders served: " + serve.score + "/" + maxOrders),
+                            "\n\nItems trashed: " + trash.score +
+                            "\n\nOrders served: " + serve.score + "/" + maxOrders),
                     705, 810);
             timer.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                     Texture.TextureFilter.Linear);
@@ -293,6 +303,35 @@ public class Game extends ApplicationAdapter {
             orderRequest.draw(batch, ("\n\n Scenario Complete!"), 350, 810);
             batch.end();
         }
+
+
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+
     }
 
     private double distance(Chef e1, Entity e2) {

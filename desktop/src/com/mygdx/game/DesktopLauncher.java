@@ -10,6 +10,6 @@ public class DesktopLauncher {
 		config.setWindowedMode(840, 820);
 		config.useVsync(true);
 		config.setForegroundFPS(60);
-		new Lwjgl3Application(new Game(), config);
+		new Lwjgl3Application(new PiazzaPanic(), config);
 	}
 }
