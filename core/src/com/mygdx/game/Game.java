@@ -35,7 +35,7 @@ public class Game extends ApplicationAdapter {
     float startInteractc1 = -5, startInteractc2 = -5;
     long startTime;
     String inventoryUIString;
-
+    private int maxOrders;
     @Override
     public void create() {
         startTime = System.currentTimeMillis();
@@ -122,11 +122,13 @@ public class Game extends ApplicationAdapter {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
 
+        maxOrders = 5;
+
     }
 
     @Override
     public void render() {
-        if (serve.score < 5 || customer.body.y > -60) {
+        if (serve.score < maxOrders || customer.body.y > -60) {
             // Updates and displays correct information on the UI at all times
             if ((startInteractc1 + 5 - deltaTime) < 0
                     && (startInteractc2 + 5 - deltaTime) < 0) {
@@ -212,7 +214,9 @@ public class Game extends ApplicationAdapter {
                     Texture.TextureFilter.Linear);
 
             timer.draw(batch, ("Time: " + ((System.currentTimeMillis() - startTime) / 1000) +
-                    "\n\nItems trashed: " + trash.score + "\n\nOrders served: " + serve.score), 705, 810);
+                    "\n\nItems trashed: " + trash.score +
+                    "\n\nOrders served: " + serve.score + "/" + 5),
+                    705, 810);
             timer.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                     Texture.TextureFilter.Linear);
             batch.end();
