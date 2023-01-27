@@ -50,7 +50,7 @@ public class Chef extends Entity {
             this.inventory.push(ingredient);
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 1
-                && distance(this, e) < 100 && !(this.inventory.isEmpty())) {
+                && distance(this, e) < 60 && !(this.inventory.isEmpty())) {
 
             this.inventory.pop();
             e.score++;

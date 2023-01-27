@@ -29,6 +29,7 @@ public class Game extends ApplicationAdapter {
             trash, grill, chopping, serve, prep, tableInv;
     private List<Entity> entities;
     private static Sprite backgroundSprite;
+    private List<String> burgerRecipe, saladRecipe;
     BitmapFont inventoryDisplay, timer, orderRequest;
     static float deltaTime = 0.0f;
     float startInteractc1 = -5, startInteractc2 = -5;
@@ -95,10 +96,14 @@ public class Game extends ApplicationAdapter {
         tableInv = new Station(new Rectangle(146, 490, 10, 10),
                 5, new Stack<String>());
 
+        burgerRecipe = Arrays.asList("Burger Bun", "Chopped Lettuce", "Cooked Patty");
+        saladRecipe = Arrays.asList("Chopped Lettuce", "Chopped Lettuce");
+
+
         // MUST ADD ENTITIES TO THIS LIST IN ORDER TO ENABLE INTERACTION/COLLISIONS
         entities = Arrays.asList(wall1, wall2, wall3, wall4, tableCollider, chef1, chef2,
-                                customer, grill, chopping, serve, prep, burgerStorage,
-                                lettuceStorage, bunStorage, trash, tableInv);
+                customer, grill, chopping, serve, prep, burgerStorage,
+                lettuceStorage, bunStorage, trash, tableInv);
 
         inventoryDisplay = new BitmapFont();
         inventoryDisplay.getData().markupEnabled = true;
@@ -121,7 +126,7 @@ public class Game extends ApplicationAdapter {
 
     @Override
     public void render() {
-        if(serve.score < 5 || customer.body.y > -60) {
+        if (serve.score < 1 || customer.body.y > -60) {
             // Updates and displays correct information on the UI at all times
             if ((startInteractc1 + 5 - deltaTime) < 0
                     && (startInteractc2 + 5 - deltaTime) < 0) {
@@ -202,7 +207,9 @@ public class Game extends ApplicationAdapter {
             inventoryDisplay.setColor(1, 1, 1, 1);
             inventoryDisplay.draw(batch, inventoryUIString, 15, 812);
 
-            orderRequest.draw(batch, ("\n\nCustomer's Order: " + customer.order), 350, 810);
+            orderRequest.draw(batch, ("\n\nCustomer order: " + customer.order), 350, 810);
+            orderRequest.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
+                    Texture.TextureFilter.Linear);
 
             timer.draw(batch, ("Time: " + ((System.currentTimeMillis() - startTime) / 1000) +
                     "\n\nItems trashed: " + trash.score + "\n\nOrders served: " + serve.score), 705, 810);
@@ -212,7 +219,6 @@ public class Game extends ApplicationAdapter {
 
             // Internal clock
             deltaTime += Gdx.graphics.getDeltaTime();
-            System.out.println(deltaTime);
 
 
             // Collision
@@ -229,10 +235,15 @@ public class Game extends ApplicationAdapter {
                 for (Entity e : entities) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.E) && distance(chef1, e) < 100
                             && !(chef1.inventory.isEmpty()) && e.stationType != 0
-                            && (e.stationType == 2 || e.stationType == 3
-                            || e.stationType == 4)) {
+                            && ((e.stationType == 2 && chef1.inventory.peek() == "Raw Patty")
+                            || (e.stationType == 3 && chef1.inventory.peek() == "Lettuce")
+                            || (e.stationType == 4 && chef1.inventory.containsAll(burgerRecipe))
+                            || (e.stationType == 4
+                            && chef1.inventory.containsAll(saladRecipe)))) {
+
                         chef1.interact(e, e.stationType, e.ingredient);
                         startInteractc1 = deltaTime;
+
                     } else if (e.stationType == 0 || e.stationType == 1
                             || e.stationType == 5 || e.stationType == 6) {
                         chef1.interact(e, e.stationType, e.ingredient);
@@ -240,16 +251,22 @@ public class Game extends ApplicationAdapter {
                 }
 
                 // Chef 2 controls
-            } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
                 chef2.movement();
 
                 for (Entity e : entities) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.E) && distance(chef2, e) < 100
                             && !(chef2.inventory.isEmpty()) && e.stationType != 0
-                            && (e.stationType == 2 || e.stationType == 3
-                            || e.stationType == 4)) {
+                            && ((e.stationType == 2 && chef2.inventory.peek() == "Raw Patty")
+                            || (e.stationType == 3 && chef2.inventory.peek() == "Lettuce")
+                            || (e.stationType == 4 && chef2.inventory.containsAll(burgerRecipe))
+                            || (e.stationType == 4
+                            && chef2.inventory.containsAll(saladRecipe)))) {
+
                         chef2.interact(e, e.stationType, e.ingredient);
                         startInteractc2 = deltaTime;
+
                     } else if (e.stationType == 0 || e.stationType == 1
                             || e.stationType == 5 || e.stationType == 6) {
                         chef2.interact(e, e.stationType, e.ingredient);
@@ -266,6 +283,11 @@ public class Game extends ApplicationAdapter {
             }
 
             customer.movement();
+        } else {
+            ScreenUtils.clear(0.4255f, 0.4255f, 0.4255f, 1);
+            batch.begin();
+            orderRequest.draw(batch, ("\n\n Scenario Complete!"), 350, 810);
+            batch.end();
         }
     }
 
