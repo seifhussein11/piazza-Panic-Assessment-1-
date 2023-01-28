@@ -64,6 +64,15 @@ public class Chef extends Entity {
 
             this.speed = 0;
             this.inventory.pop();
+            this.inventory.push("Half-Cooked Patty");
+
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 2
+                && distance(this, e) < 100
+                && !(this.inventory.isEmpty())
+                && this.inventory.peek().equals("Half-Cooked Patty")) {
+
+            this.speed = 0;
+            this.inventory.pop();
             this.inventory.push("Cooked Patty");
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 3
