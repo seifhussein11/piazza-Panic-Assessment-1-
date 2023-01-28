@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
     private final Station burgerStorage, lettuceStorage, bunStorage,
             trash, grill, chopping, serve, prep, kitchenTable;
     private List<Entity> entities;
-    private static Sprite backgroundSprite;
+    private static Sprite backgroundSprite, helpMenu;
     private final List<String> burgerRecipe, saladRecipe;
     BitmapFont inventoryDisplay, timer, orderRequest;
     static float deltaTime = 0.0f;
@@ -110,6 +110,10 @@ public class GameScreen implements Screen {
         inventoryDisplay.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                 Texture.TextureFilter.Linear);
 
+        Texture help = new Texture(Gdx.files.internal("Help Menu.png"));
+        helpMenu = new Sprite(help);
+        helpMenu.setPosition(100, 100);
+
         orderRequest = new BitmapFont();
 
         timer = new BitmapFont();
@@ -122,7 +126,7 @@ public class GameScreen implements Screen {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
 
-        maxOrders = 2;
+        maxOrders = 5;
 
     }
 
@@ -210,6 +214,10 @@ public class GameScreen implements Screen {
             batch.draw(lettuceStorage.image, lettuceStorage.body.x, lettuceStorage.body.y);
             batch.draw(bunStorage.image, bunStorage.body.x, bunStorage.body.y);
             batch.draw(trash.image, trash.body.x, trash.body.y);
+
+            if(Gdx.input.isKeyPressed(Input.Keys.TAB)){
+                helpMenu.draw(batch);
+            }
 
             inventoryDisplay.setColor(1, 1, 1, 1);
             inventoryDisplay.draw(batch, inventoryUIString, 15, 812);
