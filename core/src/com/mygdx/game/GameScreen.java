@@ -253,7 +253,7 @@ public class GameScreen implements Screen {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.E) && distance(chef1, e) < 100
                             && !(chef1.inventory.isEmpty()) && e.stationType != 0
                             && ((e.stationType == 2 && chef1.inventory.peek() == "Raw Patty")
-                            || (e.stationType == 2 && chef2.inventory.peek() == "Half-Cooked Patty")
+                            || (e.stationType == 2 && chef1.inventory.peek() == "Half-Cooked Patty")
                             || (e.stationType == 3 && chef1.inventory.peek() == "Lettuce")
                             || (e.stationType == 4 && chef1.inventory.containsAll(burgerRecipe))
                             || (e.stationType == 4
