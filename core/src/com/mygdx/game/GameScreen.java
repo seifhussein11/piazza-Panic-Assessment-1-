@@ -55,7 +55,7 @@ public class GameScreen implements Screen {
                 new Rectangle(493, 490, 144, 36), 2,
                 new Stack<String>());
 
-        chopping = new Station(new Texture(Gdx.files.internal("cooking.png")),
+        chopping = new Station(new Texture(Gdx.files.internal("cutting-Board.png")),
                 new Rectangle(100, 300, 90, 90), 3,
                 new Stack<String>());
 
