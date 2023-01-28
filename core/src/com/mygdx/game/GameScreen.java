@@ -126,7 +126,7 @@ public class GameScreen implements Screen {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
 
-        maxOrders = 5;
+        maxOrders = 1;
 
     }
 
@@ -305,7 +305,9 @@ public class GameScreen implements Screen {
         } else {
             ScreenUtils.clear(0.4255f, 0.4255f, 0.4255f, 1);
             batch.begin();
-            orderRequest.draw(batch, ("\n\n Scenario Complete!"), 350, 810);
+            orderRequest.draw(batch, ("\n\n Scenario Complete!" + "\n\n Final Time: " + deltaTime
+                    + "\n\n Items trashed: " + trash.score
+                    + "\n\n Orders served: " + serve.score), 350, 810);
             batch.end();
         }
 
