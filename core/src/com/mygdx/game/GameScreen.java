@@ -126,7 +126,7 @@ public class GameScreen implements Screen {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
 
-        maxOrders = 1;
+        maxOrders = 5;
 
     }
 

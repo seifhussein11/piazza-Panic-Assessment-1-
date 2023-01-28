@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
@@ -10,6 +11,7 @@ public class DesktopLauncher {
         config.setWindowedMode(840, 820);
         config.useVsync(true);
         config.setForegroundFPS(60);
+        config.setWindowIcon(Files.FileType.Internal, "windowIcon.png");
         new Lwjgl3Application(new PiazzaPanic(), config);
     }
 }
