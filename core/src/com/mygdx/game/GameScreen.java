@@ -236,7 +236,8 @@ public class GameScreen implements Screen {
             orderRequest.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                     Texture.TextureFilter.Linear);
 
-            timer.draw(batch, ("Time: " + ((System.currentTimeMillis() - startTime) / 1000) +
+            timer.draw(batch, ("Time: " + ((((System.currentTimeMillis() - startTime) / 1000)/60)
+                            + "m " + ((System.currentTimeMillis() - startTime) / 1000) % 60) + "s" +
                             "\n\nItems trashed: " + trash.score +
                             "\n\nOrders served: " + serve.score + "/" + maxOrders),
                     705, 810);
@@ -287,8 +288,6 @@ public class GameScreen implements Screen {
 
                 for (Entity e : entities) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.E) && distance(chef2, e) < 100
-                            && (deltaTime < startInteractc2 + 5
-                            && deltaTime > 0)
                             && !(chef2.inventory.isEmpty()) && e.stationType != 0
                             && ((e.stationType == 2 && chef2.inventory.peek().equals("Raw Patty"))
                             || (e.stationType == 2 && chef2.inventory.peek().equals("Half-Cooked Patty"))
