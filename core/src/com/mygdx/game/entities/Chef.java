@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Entity;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Stack;
 
@@ -173,9 +172,5 @@ public class Chef extends Entity {
 
     public void setSpeed(float speed) {
         this.speed = speed;
-    }
-
-    public float getSpeed() {
-        return this.speed;
     }
 }
