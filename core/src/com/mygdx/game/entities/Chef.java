@@ -141,6 +141,7 @@ public class Chef extends Entity {
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 6
                 && distance(this, e) < 100
+                && !(this.inventory.isEmpty())
                 && this.inventory.peek().equals(Customer.order)) {
             this.inventory.pop();
             e.score++;

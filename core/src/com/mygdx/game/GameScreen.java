@@ -135,7 +135,7 @@ public class GameScreen implements Screen {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
 
-        maxOrders = 5;
+        maxOrders = 1;
 
     }
 
@@ -236,8 +236,7 @@ public class GameScreen implements Screen {
             orderRequest.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
                     Texture.TextureFilter.Linear);
 
-            timer.draw(batch, ("Time: " + ((((System.currentTimeMillis() - startTime) / 1000)/60)
-                            + "m " + ((System.currentTimeMillis() - startTime) / 1000) % 60) + "s" +
+            timer.draw(batch, ("Time: " + formatTime(deltaTime) +
                             "\n\nItems trashed: " + trash.score +
                             "\n\nOrders served: " + serve.score + "/" + maxOrders),
                     705, 810);
@@ -320,7 +319,8 @@ public class GameScreen implements Screen {
         } else {
             ScreenUtils.clear(0.4255f, 0.4255f, 0.4255f, 1);
             batch.begin();
-            orderRequest.draw(batch, ("\n\n Scenario Complete!" + "\n\n Final Time: " + deltaTime
+            orderRequest.draw(batch, ("\n\n Scenario Complete!" + "\n\n Final Time: "
+                    + formatTime(deltaTime)
                     + "\n\n Items trashed: " + trash.score
                     + "\n\n Orders served: " + serve.score), 350, 810);
             batch.end();
@@ -359,5 +359,9 @@ public class GameScreen implements Screen {
         return (Math.sqrt(Math.pow((e1.body.x - e2.body.x), 2)
                 + Math.pow((e1.body.y - e2.body.y), 2)));
 
+    }
+
+    private String formatTime(float time) {
+        return Math.round(Math.floor(time/60)) + "m " + Math.round(time%60) + "s";
     }
 }
