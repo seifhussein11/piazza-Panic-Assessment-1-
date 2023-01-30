@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Entity;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Stack;
 
 public class Chef extends Entity {
@@ -84,11 +86,28 @@ public class Chef extends Entity {
             this.inventory.pop();
             this.inventory.push("Chopped Lettuce");
 
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 3
+                && distance(this, e) < 100
+                && !(this.inventory.isEmpty())
+                && this.inventory.peek().equals("Tomato")) {
+
+            this.speed = 0;
+            this.inventory.pop();
+            this.inventory.push("Chopped Tomato");
+
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 3
+                && distance(this, e) < 100
+                && !(this.inventory.isEmpty())
+                && this.inventory.peek().equals("Onion")) {
+
+            this.speed = 0;
+            this.inventory.pop();
+            this.inventory.push("Chopped Onion");
+
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 4
                 && distance(this, e) < 100
-                && this.inventory.contains("Cooked Patty") &&
-                this.inventory.contains("Chopped Lettuce") &&
-                this.inventory.contains("Burger Bun")) {
+                && new HashSet<>(this.inventory).containsAll(Arrays.asList("Burger Bun",
+                "Chopped Lettuce", "Cooked Patty"))) {
 
             this.speed = 0;
             this.inventory.remove("Cooked Patty");
@@ -98,10 +117,12 @@ public class Chef extends Entity {
 
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.E) && e.stationType == 4 &&
                 distance(this, e) < 100 &&
-                Collections.frequency(this.inventory, "Chopped Lettuce" ) >= 2) {
+                new HashSet<>(this.inventory).containsAll(Arrays.asList("Chopped Lettuce",
+                        "Chopped Tomato", "Chopped Onion"))) {
 
             this.inventory.remove("Chopped Lettuce");
-            this.inventory.remove("Chopped Lettuce");
+            this.inventory.remove("Chopped Tomato");
+            this.inventory.remove("Chopped Onion");
             this.speed = 0;
             this.inventory.push("Salad");
 
