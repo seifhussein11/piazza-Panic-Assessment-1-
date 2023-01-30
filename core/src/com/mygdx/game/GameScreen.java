@@ -39,11 +39,11 @@ public class GameScreen implements Screen {
         startTime = System.currentTimeMillis();
         // Instantiating entities
         chef1 = new Chef(new Texture(Gdx.files.internal("chef1.png")),
-                new Rectangle(45, 50, 48, 48), new Stack<String>(),
+                new Rectangle(200, 500, 48, 48), new Stack<String>(),
                 300);
 
         chef2 = new Chef(new Texture(Gdx.files.internal("chef2.png")),
-                new Rectangle(200, 50, 48, 48), new Stack<String>(),
+                new Rectangle(300, 500, 48, 48), new Stack<String>(),
                 300);
 
         customer = new Customer(new Texture(Gdx.files.internal("chef3.png")),
@@ -54,11 +54,11 @@ public class GameScreen implements Screen {
                 new Stack<String>());
 
         chopping = new Station(new Texture(Gdx.files.internal("cutting-Board.png")),
-                new Rectangle(750, 345, 48, 40), 3,
+                new Rectangle(650, 345, 48, 40), 3,
                 new Stack<String>());
 
         prep = new Station(new Texture(Gdx.files.internal("prep.png")),
-                new Rectangle(540, 352, 64, 32), 4,
+                new Rectangle(440, 352, 64, 32), 4,
                 new Stack<String>());
 
         serve = new Station(new Rectangle(108, 250, 108, 36),
@@ -77,11 +77,11 @@ public class GameScreen implements Screen {
                 0, "Burger Bun");
 
         tomatoStorage = new Station(new Texture(Gdx.files.internal("tomato.png")),
-                new Rectangle(750, 650, 20, 20),
+                new Rectangle(760, 650, 20, 20),
                 0, "Tomato");
 
         onionStorage = new Station(new Texture(Gdx.files.internal("onion.png")),
-                new Rectangle(770, 500, 30, 30),
+                new Rectangle(768, 380, 30, 30),
                 0, "Onion");
 
         trash = new Station(new Texture(Gdx.files.internal("trash.png")),
@@ -135,7 +135,7 @@ public class GameScreen implements Screen {
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
 
-        maxOrders = 1;
+        maxOrders = 5;
 
     }
 
