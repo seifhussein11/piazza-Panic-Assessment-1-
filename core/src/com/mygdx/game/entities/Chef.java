@@ -165,8 +165,8 @@ public class Chef extends Entity {
 
     private double distance(Chef e1, Entity e2) {
         // Manhattan distance
-        return (Math.abs(e1.body.x - e2.body.x)
-                + Math.abs(e1.body.y - e2.body.y));
+        return (Math.sqrt(Math.pow((e1.body.x - e2.body.x), 2)
+                + Math.pow((e1.body.y - e2.body.y), 2)));
 
     }
 
