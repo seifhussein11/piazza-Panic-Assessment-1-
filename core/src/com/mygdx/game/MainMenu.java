@@ -17,11 +17,11 @@ public class MainMenu implements Screen {
     private Texture background2;
 
     public MainMenu(final PiazzaPanic game) {
-        this.game = game;
+        this.game = game;  //create a new game.
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 840, 820);
-        start = new Texture("zorar.jpg");
 
+        start = new Texture("zorar.jpg");
         piazzaPanic = new Texture("newtitle2.png");
         background2 = new Texture("_3kitchen.png");
     }
@@ -32,6 +32,7 @@ public class MainMenu implements Screen {
     }
 
     @Override
+    // draw the game menu
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
@@ -41,7 +42,7 @@ public class MainMenu implements Screen {
         game.batch.draw(start, 220, 350);
         game.batch.draw(piazzaPanic, 30, 610);
         game.batch.end();
-
+        // switch to the game screen if touched
         if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));
             dispose();
