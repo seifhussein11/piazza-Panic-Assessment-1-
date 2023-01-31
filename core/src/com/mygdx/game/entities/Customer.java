@@ -44,11 +44,11 @@ public class Customer extends Entity {
         if (this.body.y > 200) {
             this.body.y = 200;
             state = 2;
-            this.image = new Texture(Gdx.files.internal(Random(sprites)));
         }
         if (this.body.y < -80) {
             this.state = 1;
             this.order = Random(orders);
+            this.image = new Texture(Gdx.files.internal(Random(sprites)));
         }
     }
 }
