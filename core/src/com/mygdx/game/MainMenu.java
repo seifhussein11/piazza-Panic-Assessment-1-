@@ -20,10 +20,10 @@ public class MainMenu implements Screen {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 840, 820);
-        start = new Texture("zorar.png");
+        start = new Texture("zorar.jpg");
 
         piazzaPanic = new Texture("newtitle.png");
-        background2 = new Texture("1kitchen.png");
+        background2 = new Texture("_3kitchen.png");
     }
 
     @Override
