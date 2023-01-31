@@ -86,7 +86,7 @@ public class GameScreen implements Screen {
                 0, "Onion");
 
         trash = new Station(new Texture(Gdx.files.internal("trash.png")),
-                new Rectangle(72, 384, 35, 55),
+                new Rectangle(72, 390, 35, 55),
                 1, 0);
 
         Entity wall1 = new Entity(new Rectangle(36, 350, 248, 36));
