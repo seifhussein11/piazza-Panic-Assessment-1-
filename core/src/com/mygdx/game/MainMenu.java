@@ -22,7 +22,7 @@ public class MainMenu implements Screen {
         camera.setToOrtho(false, 840, 820);
         start = new Texture("zorar.jpg");
 
-        piazzaPanic = new Texture("newtitle.png");
+        piazzaPanic = new Texture("newtitle2.png");
         background2 = new Texture("_3kitchen.png");
     }
 
