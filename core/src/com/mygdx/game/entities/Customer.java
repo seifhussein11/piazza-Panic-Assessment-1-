@@ -12,21 +12,23 @@ public class Customer extends Entity {
     private float speed;
     public static String order;
     String[] orders = new String[] {"Burger", "Salad"};
+    String[] sprites = new String[] {"Witch-Hat.png", "Cowboy-Hat.png"};
 
     public Customer(Texture image, Rectangle body, float speed) {
-        super(image, body);
+        super(body);
         this.prevx = body.x;
         this.prevy = body.y;
         this.speed = speed;
         this.state = 1;
-        this.order = Random();
+        this.order = Random(orders);
+        this.image = new Texture(Gdx.files.internal(Random(sprites)));
 
     }
 
-    public String Random() {
+    public String Random(String[] list) {
         Random random = new Random();
-        int index = random.nextInt(orders.length);
-        return orders[index];
+        int index = random.nextInt(list.length);
+        return list[index];
     }
 
     public void movement() {
@@ -42,10 +44,11 @@ public class Customer extends Entity {
         if (this.body.y > 200) {
             this.body.y = 200;
             state = 2;
+            this.image = new Texture(Gdx.files.internal(Random(sprites)));
         }
         if (this.body.y < -80) {
             this.state = 1;
-            this.order = Random();
+            this.order = Random(orders);
         }
     }
 }
