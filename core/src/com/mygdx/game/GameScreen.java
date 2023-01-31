@@ -37,6 +37,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(PiazzaPanic game) {
         startTime = System.currentTimeMillis();
+
         // Instantiating entities
         chef1 = new Chef(new Texture(Gdx.files.internal("chef1.png")),
                 new Rectangle(200, 500, 48, 48), new Stack<String>(),
@@ -131,6 +132,8 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 840, 820);
         batch = new SpriteBatch();
 
+        // Background has recipes displayed on it, blank version is included
+        // in the assets folder if needed
         Texture background = new Texture(Gdx.files.internal("PiazzaPanicMap.png"));
         backgroundSprite = new Sprite(background);
         backgroundSprite.setPosition(0, -33);
