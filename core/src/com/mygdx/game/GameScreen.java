@@ -70,15 +70,15 @@ public class GameScreen implements Screen {
                 0, "Raw Patty");
 
         lettuceStorage = new Station(new Texture(Gdx.files.internal("lettuce.png")),
-                new Rectangle(520, 650, 15, 20),
+                new Rectangle(500, 650, 15, 20),
                 0, "Lettuce");
 
         bunStorage = new Station(new Texture(Gdx.files.internal("burger_bun.png")),
-                new Rectangle(640, 650, 25, 15),
+                new Rectangle(620, 650, 25, 15),
                 0, "Burger Bun");
 
         tomatoStorage = new Station(new Texture(Gdx.files.internal("tomato.png")),
-                new Rectangle(760, 650, 20, 20),
+                new Rectangle(765, 650, 20, 20),
                 0, "Tomato");
 
         onionStorage = new Station(new Texture(Gdx.files.internal("onion.png")),
